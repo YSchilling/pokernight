@@ -1,6 +1,7 @@
-from card import Card
-from enums import CardColor
-from enums import CardValue
+from .card import Card
+from .enums import CardColor
+from .enums import CardValue
+import random
 
 class Deck:
     def __init__(self) -> None:
@@ -11,3 +12,9 @@ class Deck:
 
     def add_card(self, card: Card) -> None:
         self.cards.append(card)
+    
+    def add_multiple(self, cards: list[Card]) -> None:
+        self.cards += cards
+    
+    def shuffle(self):
+        random.shuffle(self.cards)
