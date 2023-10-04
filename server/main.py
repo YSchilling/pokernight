@@ -14,6 +14,8 @@ def main():
     
     for player in game.player_manager.players:
         print(player)
+    
+    print(game.card_manager.deck)
 
 if __name__ == "__main__":
     main()

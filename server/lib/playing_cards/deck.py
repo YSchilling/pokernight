@@ -7,6 +7,12 @@ class Deck:
     def __init__(self) -> None:
         self.cards = [Card(color, value) for color in CardColor for value in CardValue]
     
+    def __str__(self):
+        string = "Deck {"
+        string += ", ".join(map(lambda x: str(x), self.cards))
+        string += "}"
+        return string
+    
     def get_card(self) -> Card:
         return self.cards.pop()
 
