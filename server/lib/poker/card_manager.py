@@ -1,5 +1,6 @@
 from ..playing_cards.deck import Deck
 from .player import Player
+from ..playing_cards.card import Card
 
 class CardManager:
     def __init__(self) -> None:

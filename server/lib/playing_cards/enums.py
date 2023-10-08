@@ -1,24 +1,26 @@
 from enum import Enum
 from enum import auto
 
+
 class CardColor(Enum):
     SPADES = auto()
     HEARTS = auto()
     DIAMONDS = auto()
     CLUBS = auto()
 
+
 class CardValue(Enum):
-    # Don't change numbers, or else the __str__ wont function
-    ACE = 0
-    TWO = 1
-    THREE = 2
-    FOUR = 3
-    FIVE = 4
-    SIX = 5
-    SEVEN = 6
-    EIGHT = 7
-    NINE = 8
-    TEN = 9
-    JACK = 10
-    QUEEN = 12
-    KING = 13
+    LOW_ACE = auto()
+    TWO = auto()
+    THREE = auto()
+    FOUR = auto()
+    FIVE = auto()
+    SIX = auto()
+    SEVEN = auto()
+    EIGHT = auto()
+    NINE = auto()
+    TEN = auto()
+    JACK = auto()
+    QUEEN = auto()
+    KING = auto()
+    ACE = auto()

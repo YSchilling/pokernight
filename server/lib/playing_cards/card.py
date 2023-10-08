@@ -1,12 +1,28 @@
 from .enums import CardColor
 from .enums import CardValue
 
+
 class Card:
     def __init__(self, color: CardColor, value: CardValue):
         self.color = color
         self.value = value
-    
+
     def __str__(self) -> str:
+        card_to_value = {
+            CardValue.ACE: 0,
+            CardValue.TWO: 1,
+            CardValue.THREE: 2,
+            CardValue.FOUR: 3,
+            CardValue.FIVE: 4,
+            CardValue.SIX: 5,
+            CardValue.SEVEN: 6,
+            CardValue.EIGHT: 7,
+            CardValue.NINE: 8,
+            CardValue.TEN: 9,
+            CardValue.JACK: 10,
+            CardValue.QUEEN: 12,
+            CardValue.KING: 13,
+        }
         bytes_list = list("🂡".encode())
         bytes_list = [240, 159, 0, 0]
         match self.color:
@@ -22,6 +38,6 @@ class Card:
             case CardColor.CLUBS:
                 bytes_list[2] = 131
                 bytes_list[3] = 145
-        
-        bytes_list[3] += self.value.value
+
+        bytes_list[3] += card_to_value[self.value]
         return bytes(bytes_list).decode()
