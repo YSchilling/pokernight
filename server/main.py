@@ -4,7 +4,7 @@ from lib.poker.player import Player
 from lib.playing_cards.card import Card
 from lib.playing_cards.enums import CardColor
 from lib.playing_cards.enums import CardValue
-from lib.poker.helper import cards_form_straight
+from lib.poker.helper import calculate_player_best_hand
 
 
 def main():
@@ -32,19 +32,19 @@ def main():
 
     player = Player("kek")
     player.cards = [
-        Card(CardColor.CLUBS, CardValue.TWO),
-        Card(CardColor.SPADES, CardValue.THREE)
+        Card(CardColor.HEARTS, CardValue.TWO),
+        Card(CardColor.HEARTS, CardValue.THREE)
     ]
 
     community_cards = [
-        Card(CardColor.CLUBS, CardValue.KING),
-        Card(CardColor.CLUBS, CardValue.FIVE),
-        Card(CardColor.CLUBS, CardValue.SIX),
-        Card(CardColor.HEARTS, CardValue.ACE),
-        Card(CardColor.DIAMONDS, CardValue.ACE),
+        Card(CardColor.CLUBS, CardValue.NINE),
+        Card(CardColor.HEARTS, CardValue.SIX),
+        Card(CardColor.HEARTS, CardValue.KING),
+        Card(CardColor.CLUBS, CardValue.ACE),
+        Card(CardColor.CLUBS, CardValue.TEN),
     ]
 
-    print(cards_form_straight(community_cards + player.cards).value)
+    print(calculate_player_best_hand(player, community_cards))
 
 
 if __name__ == "__main__":

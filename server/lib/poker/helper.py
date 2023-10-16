@@ -3,7 +3,6 @@ from ..playing_cards.enums import CardValue
 from ..playing_cards.enums import CardColor
 from .player import Player
 
-import collections
 import enum
 
 
@@ -31,14 +30,71 @@ def calculate_player_best_hand(player: Player, community_cards: list[Card]):
     cards = player.cards + community_cards
 
     # check color
-    color_counter = collections.Counter([card.color for card in cards])
-    # check kind
-    kind_counter = collections.Counter([card.value for card in cards])
-    # check straight
-    # check if ace in cards
+    flush_result, flush = cards_form_flush(cards)
+    if flush_result:
+        straight_result, straight = cards_form_straight(flush)
+        if straight_result:
+            high_card = straight[0]
+            if Card(None, CardValue.ACE).eq_value(high_card):
+                return PokerHand.ROYAL_FLUSH
+            else:
+                return PokerHand.STRAIGHT_FLUSH
+
+    # check royal flush
+    multiple_result = categorize_multiple(cards)
+    biggest_multiple = multiple_result[0]
+    second_biggest_multiple = multiple_result[1]
+    if len(biggest_multiple) == 4:
+        return PokerHand.FOUR_OF_A_KIND
+    if len(biggest_multiple) == 3 and len(second_biggest_multiple) >= 2:
+        return PokerHand.FULL_HOUSE
+
+    if flush_result:
+        return PokerHand.FLUSH
+
+    straight_result, straight = cards_form_straight(cards)
+    if straight_result:
+        return PokerHand.STRAIGHT
+
+    if len(biggest_multiple) == 3:
+        return PokerHand.THREE_OF_A_KIND
+
+    if len(biggest_multiple) == 2 and len(second_biggest_multiple) == 2:
+        return PokerHand.TWO_PAIR
+
+    if len(biggest_multiple) == 2:
+        return PokerHand.PAIR
+
+    return PokerHand.HIGH_CARD
 
 
-def cards_form_straight(cards: list[Card]) -> (bool, Card):
+def categorize_multiple(cards: list[Card]) -> list[Card]:
+    values = [[] for _ in range(13)]
+
+    for card in cards:
+        index = card.value.value - 2
+        values[index].append(card)
+
+    values.sort(key=lambda x: len(x), reverse=True)
+
+    return [x for x in values if x != []]
+
+
+def cards_form_flush(cards: list[Card]) -> (bool, list[Card]):
+    colors = [[], [], [], []]
+
+    for card in cards:
+        colors[card.color.value-1].append(card)
+
+    max_color = max(colors, key=lambda x: len(x))
+
+    if len(max_color) < 5:
+        return (False, None)
+
+    return (True, max_color)
+
+
+def cards_form_straight(cards: list[Card]) -> (bool, list[Card]):
     cards.sort(key=lambda x: x.value.value, reverse=True)
     for card in cards:
         if card.value == CardValue.ACE:
@@ -51,6 +107,9 @@ def cards_form_straight(cards: list[Card]) -> (bool, Card):
         if len(straight) == 0:
             straight.append(card)
             continue
+
+        if len(straight) == 5:
+            break
 
         last_card_value = straight[-1].value.value
         this_card_value = card.value.value
@@ -65,4 +124,4 @@ def cards_form_straight(cards: list[Card]) -> (bool, Card):
     if len(straight) < 5:
         return (False, None)
 
-    return (True, straight[0])
+    return (True, straight[:5])

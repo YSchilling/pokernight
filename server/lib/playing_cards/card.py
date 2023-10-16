@@ -7,7 +7,13 @@ class Card:
         self.color = color
         self.value = value
 
+    def __eq__(self, other):
+        return self.color == other.color and self.value == other.value
+
     def __str__(self) -> str:
+        return f"({self.color.name} {self.value.name})"
+
+    def to_symbol(self):
         card_to_value = {
             CardValue.ACE: 0,
             CardValue.TWO: 1,
@@ -41,3 +47,9 @@ class Card:
 
         bytes_list[3] += card_to_value[self.value]
         return bytes(bytes_list).decode()
+
+    def eq_value(self, other) -> bool:
+        return self.value == other.value
+
+    def eq_color(self, other) -> bool:
+        return self.color == other.color
