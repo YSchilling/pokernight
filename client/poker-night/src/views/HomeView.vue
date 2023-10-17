@@ -3,5 +3,7 @@ import Table from '../components/Table.vue';
 </script>
 
 <template>
-  <Table></Table>
+  <div class="w-screen h-screen flex justify-center items-center">
+    <Table></Table>
+  </div>
 </template>
