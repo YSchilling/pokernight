@@ -1,7 +1,12 @@
 <script setup></script>
 
 <template>
-  <div class="w-10 h-14 bg-black"></div>
+  <div class="bg-black"></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+  width: 15%;
+  height: 18%;
+}
+</style>

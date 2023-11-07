@@ -3,7 +3,7 @@ import PlayingCard from "./PlayingCard.vue";
 </script>
 
 <template>
-  <div class="w-60 grid grid-cols-5">
+  <div class="w-4/5 h-full flex justify-between items-center">
     <PlayingCard></PlayingCard>
     <PlayingCard></PlayingCard>
     <PlayingCard></PlayingCard>
