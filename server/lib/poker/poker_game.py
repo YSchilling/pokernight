@@ -1,33 +1,35 @@
-from .chip_manager import ChipManager
-from .card_manager import CardManager
-from .game_config import GameConfig
-from .player_manager import PlayerManager
-from .enums import GameState
 from .player import Player
+from ..playing_cards.deck import Deck
+from ..playing_cards.card import Card
 
 
 class PokerGame:
-    def __init__(self, config: GameConfig) -> None:
-        self.config = config
-        self.state = GameState.CREATING
-        self.player_manager = PlayerManager()
-        self.card_manager = CardManager()
-        self.chip_manager = ChipManager(config)
+    def __init__(self):
+        self.deck: Deck = Deck()
+        self.players: list[Player] = [Player(), Player()]
+        self.community_cards: list[Card] = []
 
-    def start(self) -> None:
-        self.state = GameState.RUNNING
-        self.chip_manager.give_players_money(
-            self.player_manager.players, self.config.player_starting_money)
-        self.chip_manager.give_players_buttons()
-        self.start_round()
+    def run(self):
+        # shuffle deck
+        self.deck.shuffle()
+        # give players cards
+        for _ in range(2):
+            for player in self.players:
+                player.cards.append(self.deck.draw_card())
+        # deal community cards
+        for _ in range(5):
+            self.community_cards.append(self.deck.draw_card())
+        # print game state
+        print("Players:")
+        for player in self.players:
+            print([card for card in map(str, player.cards)])
 
-    def start_round(self) -> None:
-        self.card_manager.deck.shuffle()
-        self.card_manager.give_players_cards(self.player_manager.players)
+        print("Community Card:")
+        print([card for card in map(str, self.community_cards)])
 
-    def join_player(self, player: Player) -> None:
-        if self.state != GameState.CREATING:
-            raise ValueError(
-                "Player can't join while game is not in creating state!")
-
-        self.player_manager.players.append(player)
+        print("Deck:")
+        print(self.deck)
+        # collect cards
+        for player in self.players:
+            self.deck.add_multiple(player.cards)
+            player.cards = []
