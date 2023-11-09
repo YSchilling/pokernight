@@ -6,8 +6,9 @@ import random
 
 class Deck:
     def __init__(self) -> None:
+        values = [e for e in CardValue if e.name != "LOW_ACE"]
         self.cards = [Card(color, value)
-                      for color in CardColor for value in CardValue]
+                      for color in CardColor for value in values]
 
     def __str__(self):
         string = "Deck {"

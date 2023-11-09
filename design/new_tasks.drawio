@@ -1,0 +1,16 @@
+<mxfile host="65bd71144e">
+    <diagram id="DZj6RHV89Rnd6PY-ZiVc" name="Page-1">
+        <mxGraphModel dx="660" dy="364" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="With this document I want to structure the implementation of my project. So when I want to do what :)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="40" width="560" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;b&gt;Basics and Card Management&lt;/b&gt;&lt;br&gt;[ ] Implement a Deck and Cards&lt;br&gt;[ ] Implement Players and Community Cards&lt;br&gt;[ ] Basic Game Loop and Game Class&lt;br&gt;[ ] Automatically decide winner&lt;br&gt;&lt;b&gt;&lt;br&gt;Betting and Chips Management&lt;br&gt;&lt;/b&gt;[ ] Give the players options to take action&lt;br&gt;[ ] Implement dealer button and make it move&lt;br&gt;[ ] Implement Folding&lt;br&gt;[ ] Give players chips&lt;br&gt;[ ] Implement Raising and Calling&lt;br&gt;[ ] Round ends if everyone called&lt;br&gt;[ ] Implement big and small blind" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="70" width="260" height="210" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
