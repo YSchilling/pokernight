@@ -16,20 +16,24 @@ class RoundPhase(enum.Enum):
 
 class PokerRound:
     def __init__(self, players: list[Player], dealer_button_position: int):
-        self.players: list[Player] = players
+        self.players: list[Player] = players[dealer_button_position:] + \
+            players[:dealer_button_position]
         self.deck: Deck = Deck()
         self.community_cards: list[Card] = []
-        self.dealer_button_position = dealer_button_position
+        self.pot: int = 0
+        self.highest_bet: int = 0
 
     def play_round(self):
         self._prepare_round()
 
         for phase in RoundPhase:
             self.phase = phase
+            self.highest_bet = 0
             self._deal_community_cards()
             self._get_player_actions()
+            print(self.pot)
 
-            if len(self.players) == 0:
+            if len(self.players) <= 1:
                 return
 
         winners = calculate_winner(self.players, self.community_cards)
@@ -50,22 +54,44 @@ class PokerRound:
                 player.cards.append(self.deck.draw_card())
 
     def _get_player_actions(self):
-        for player in self.players.copy():
 
-            action = None
-            while action == None:
-                print("1: fold, 2: call, 3: raise")
-                input_string = input()
-                match input_string:
-                    case "1":
-                        action = PlayerAction.FOLD
-                        self.players.remove(player)
-                    case "2":
-                        action = PlayerAction.CALL
-                    case "3":
-                        action = PlayerAction.RAISE
+        i = 0
+        player_bets = {player: None for player in self.players}
+        while True:
+            player = self.players[i % len(self.players)]
 
-            print(player.name, action)
+            print(f"{player.name}:  1: fold, 2: call, 3: raise")
+            input_string = input()
+            match input_string:
+                case "1":
+                    self.players.remove(player)
+                    player_bets.pop(player)
+                    i -= 1
+                case "2":
+                    player.chips -= self.highest_bet
+                    self.pot += self.highest_bet
+                    if player_bets[player] == None:
+                        player_bets[player] = self.highest_bet
+                    else:
+                        player_bets[player] += self.highest_bet
+                case "3":
+                    amount = 0
+                    while amount <= self.highest_bet:
+                        amount = int(input())
+                    self.highest_bet = amount
+                    player.chips -= amount
+                    self.pot += amount
+                    if player_bets[player] == None:
+                        player_bets[player] = self.highest_bet
+                    else:
+                        player_bets[player] += self.highest_bet
+
+            all_betted_same = all(
+                [bet == self.highest_bet for bet in player_bets.values()])
+            if all_betted_same or len(self.players) == 1:
+                return
+
+            i += 1
 
     def _deal_community_cards(self) -> None:
         match self.phase:
