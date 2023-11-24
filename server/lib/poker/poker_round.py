@@ -1,4 +1,5 @@
 from ..poker.player import Player
+from ..poker.player import PlayerAction
 from ..playing_cards.deck import Deck
 from ..playing_cards.card import Card
 from .calculate_winner import calculate_winner
@@ -45,9 +46,13 @@ class PokerRound:
                 player.cards.append(self.deck.draw_card())
 
     def _get_player_actions(self):
-        for player in self.players:
+        for player in self.players.copy():
             action = input()
             print(player.name, action)
+
+            match action:
+                case "fold":
+                    self.players.remove(player)
 
     def _deal_community_cards(self) -> None:
         match self.phase:
