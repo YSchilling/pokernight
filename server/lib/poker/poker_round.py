@@ -53,6 +53,9 @@ class PokerRound:
             for player in self.players:
                 player.cards.append(self.deck.draw_card())
 
+    def _make_blinds(self):
+        self.players[0]
+
     def _get_player_actions(self):
 
         i = 0
