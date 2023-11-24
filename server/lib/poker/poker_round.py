@@ -15,10 +15,11 @@ class RoundPhase(enum.Enum):
 
 
 class PokerRound:
-    def __init__(self, players: list[Player]):
+    def __init__(self, players: list[Player], button_positions: list[Player]):
         self.players: list[Player] = players
         self.deck: Deck = Deck()
         self.community_cards: list[Card] = []
+        self.button_positions = button_positions
 
     def play_round(self):
         self._prepare_round()

@@ -4,20 +4,20 @@ from .poker_round import PokerRound
 
 class PokerGame:
     def __init__(self):
-        self.players: list[Player] = [
-            Player("Player1"),
-            Player("Player2"),
-            Player("Player3"),
-            Player("Player4")
-        ]
+        self.players: list[Player] = []
         self.running = False
+        self.button_positions = []
 
-    def run(self):
-        self.running = True
-        # wait for all players
-        while self.running:
-            self._start_round()
+    def try_start_game(self):
+        if not self.running and len(self.players) >= 2:
+            self.running = True
+            while (self.running):
+                self._start_round()
+
+    def join_player(self, name):
+        if len(self.players) <= 8:
+            self.players.append(Player(name))
 
     def _start_round(self):
-        round = PokerRound(self.players.copy())
+        round = PokerRound(self.players.copy(), self.button_positions.copy())
         round.play_round()
