@@ -19,5 +19,5 @@ class PokerGame:
             self._start_round()
 
     def _start_round(self):
-        round = PokerRound(self.players)
+        round = PokerRound(self.players.copy())
         round.play_round()

@@ -28,6 +28,9 @@ class PokerRound:
             self._deal_community_cards()
             self._get_player_actions()
 
+            if len(self.players) == 0:
+                return
+
         winners = calculate_winner(self.players, self.community_cards)
         if len(winners) == 1:
             print("Winner:", winners[0].name)
@@ -47,12 +50,21 @@ class PokerRound:
 
     def _get_player_actions(self):
         for player in self.players.copy():
-            action = input()
-            print(player.name, action)
 
-            match action:
-                case "fold":
-                    self.players.remove(player)
+            action = None
+            while action == None:
+                print("1: fold, 2: call, 3: raise")
+                input_string = input()
+                match input_string:
+                    case "1":
+                        action = PlayerAction.FOLD
+                        self.players.remove(player)
+                    case "2":
+                        action = PlayerAction.CALL
+                    case "3":
+                        action = PlayerAction.RAISE
+
+            print(player.name, action)
 
     def _deal_community_cards(self) -> None:
         match self.phase:
