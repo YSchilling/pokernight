@@ -3,6 +3,7 @@ from ..poker.player import PlayerAction
 from ..playing_cards.deck import Deck
 from ..playing_cards.card import Card
 from .calculate_winner import calculate_winner
+from .game_config import GameConfig
 
 import enum
 
@@ -46,6 +47,7 @@ class PokerRound:
     def _prepare_round(self):
         self.deck.shuffle()
         self._give_players_cards()
+        self._make_blinds()
 
     def _give_players_cards(self):
         CARD_COUNT = 2
@@ -54,7 +56,21 @@ class PokerRound:
                 player.cards.append(self.deck.draw_card())
 
     def _make_blinds(self):
-        self.players[0]
+        small_blind = GameConfig.MINIMUM_BET / 2
+        big_blind = GameConfig.MINIMUM_BET
+
+        if len(self.players) >= 3:
+            self.players[1].chips -= small_blind
+            self.pot += small_blind
+
+            self.players[2].chips -= big_blind
+            self.pot += big_blind
+        else:  # head to head rule
+            self.players[0].chips -= small_blind
+            self.pot += small_blind
+
+            self.players[1].chips -= big_blind
+            self.pot += big_blind
 
     def _get_player_actions(self):
 
@@ -99,15 +115,12 @@ class PokerRound:
     def _deal_community_cards(self) -> None:
         match self.phase:
             case RoundPhase.PREFLOP:
-                print("PREFLOP")
+                pass
             case RoundPhase.FLOP:
-                print("FLOP")
                 self.community_cards.append(self.deck.draw_card())
                 self.community_cards.append(self.deck.draw_card())
                 self.community_cards.append(self.deck.draw_card())
             case RoundPhase.TURN:
-                print("TURN")
                 self.community_cards.append(self.deck.draw_card())
             case RoundPhase.RIVER:
-                print("RIVER")
                 self.community_cards.append(self.deck.draw_card())

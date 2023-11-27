@@ -1,5 +1,6 @@
 from .player import Player
 from .poker_round import PokerRound
+from .game_config import GameConfig
 
 
 class PokerGame:
@@ -9,19 +10,19 @@ class PokerGame:
         self.dealer_button_position = 0
 
     def try_start_game(self):
-        if not self.running and len(self.players) >= 2:
-            self.running = True
+        if self.running or len(self.players) < 2:
+            return
 
-            while (self.running):
-                self._start_round()
-                self._move_dealer_button()
+        self.running = True
+        while (self.running):
+            self._start_round()
+            self._move_dealer_button()
 
     def join_player(self, name):
-        if len(self.players) <= 8:
+        if len(self.players) <= GameConfig.MAX_PLAYERS:
             self.players.append(Player(name))
 
     def _start_round(self):
-        print(self.dealer_button_position)
         round = PokerRound(self._get_active_players(),
                            self.dealer_button_position)
         round.play_round()
