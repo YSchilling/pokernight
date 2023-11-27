@@ -1,8 +1,8 @@
-from lib.poker.poker_game import PokerGame
+import api
 
-game = PokerGame()
+game = api.create_game()
 
 for i in range(1, 5):
-    game.join_player(f"Player {i}")
+    api.join_player(game, f"Player {i}")
 
-game.start_game()
+api.start_game(game)

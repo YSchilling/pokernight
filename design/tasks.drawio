@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="DZj6RHV89Rnd6PY-ZiVc" name="Page-1">
-        <mxGraphModel dx="939" dy="665" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="956" dy="528" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -9,6 +9,9 @@
                 </mxCell>
                 <mxCell id="4" value="&lt;b&gt;Basics and Card Management&lt;/b&gt;&lt;br&gt;[X] Implement a Deck and Cards&lt;br&gt;[X] Implement Players and Community Cards&lt;br&gt;[X] Basic Game Loop and Game Class&lt;br&gt;[X] Automatically decide winner&lt;br&gt;&lt;b&gt;&lt;br&gt;Betting and Chips Management&lt;br&gt;&lt;/b&gt;[X] Give the players options to take action&lt;br&gt;[X] Implement dealer button and make it move&lt;br&gt;[X] Implement Folding&lt;br&gt;[X] Give players chips&lt;br&gt;[X] Implement Raising and Calling&lt;br&gt;[X] Round ends if everyone called&lt;br&gt;[X] Implement big and small blind" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="50" y="70" width="270" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;b&gt;Making the game API ready&lt;/b&gt;&lt;br&gt;[&amp;nbsp; ] json export of current game state&lt;br&gt;[&amp;nbsp; ] player taking action with a method and not with input()&lt;br&gt;[&amp;nbsp; ] implementing state for the game and the round, so that methods only work while in right state" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="65" width="530" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

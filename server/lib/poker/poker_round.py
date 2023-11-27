@@ -14,7 +14,6 @@ class RoundPhase(enum.Enum):
     TURN = enum.auto()
     RIVER = enum.auto()
 
-
 class PokerRound:
     def __init__(self, players: list[Player], dealer_button_position: int):
         self.players: list[Player] = players[dealer_button_position:] + \
