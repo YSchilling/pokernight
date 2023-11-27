@@ -2,25 +2,32 @@ from .player import Player
 from .poker_round import PokerRound
 from .game_config import GameConfig
 
+import enum
+
+class PokerGameState(enum.Enum):
+    CREATING = enum.auto()
+    RUNNING = enum.auto()
 
 class PokerGame:
     def __init__(self):
         self.players: list[Player] = []
-        self.running = False
-        self.dealer_button_position = 0
-
-    def try_start_game(self):
-        if self.running or len(self.players) < 2:
-            return
-
-        self.running = True
-        while (self.running):
-            self._start_round()
-            self._move_dealer_button()
+        self.state: PokerGameState = PokerGameState.CREATING
+        self.dealer_button_position: int = 0
 
     def join_player(self, name):
-        if len(self.players) <= GameConfig.MAX_PLAYERS:
-            self.players.append(Player(name))
+        if not (self.state == PokerGameState.CREATING) or len(self.players) >= GameConfig.MAX_PLAYERS:
+            return
+        
+        self.players.append(Player(name))
+
+    def start_game(self):
+        if not (self.state == PokerGameState.CREATING) or len(self.players) < 2:
+            return
+
+        self.state = PokerGameState.RUNNING
+        while (self.state == PokerGameState.RUNNING):
+            self._start_round()
+            self._move_dealer_button()
 
     def _start_round(self):
         round = PokerRound(self._get_active_players(),
