@@ -2,7 +2,7 @@ from ..poker.player import Player
 from ..poker.player import PlayerAction
 from ..playing_cards.deck import Deck
 from ..playing_cards.card import Card
-from .calculate_winner import calculate_winner
+from .calculate_winner import calculate_winners
 from .game_config import GameConfig
 
 import enum
@@ -14,9 +14,11 @@ class RoundPhase(enum.Enum):
     TURN = enum.auto()
     RIVER = enum.auto()
 
+
 class RoundState(enum.Enum):
     RUNNING = enum.auto()
     ENDED = enum.auto()
+
 
 class PokerRound:
     def __init__(self, players: list[Player], dealer_button_position: int):
@@ -34,7 +36,7 @@ class PokerRound:
         self.deck.shuffle()
         self._give_players_cards()
         self._make_blinds()
-    
+
     def player_action(self, action: PlayerAction):
         self._process_action(action)
 
@@ -44,10 +46,10 @@ class PokerRound:
             self._next_phase()
             if len(self.players) <= 1:
                 self._end_round()
-    
+
     def _end_round(self):
         self.state = RoundState.ENDED
-        winners = calculate_winner(self.players, self.community_cards)
+        winners = calculate_winners(self.players, self.community_cards)
         if len(winners) == 1:
             print("Winner:", winners[0].name)
         else:
@@ -133,5 +135,5 @@ class PokerRound:
 
     def _check_phase_end(self):
         all_betted_same = all(
-                [bet == self.highest_bet for bet in self.player_bets.values()])
+            [bet == self.highest_bet for bet in self.player_bets.values()])
         return all_betted_same or len(self.players) == 1

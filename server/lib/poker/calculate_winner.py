@@ -7,16 +7,16 @@ import enum
 
 
 class PokerHandCategory(enum.Enum):
-    ROYAL_FLUSH = 0  # same worth
-    STRAIGHT_FLUSH = 1  # highcard
-    FOUR_OF_A_KIND = 2  # quadruplet -> kicker
-    FULL_HOUSE = 3  # triplet -> pair
-    FLUSH = 4  # highcards until 5
-    STRAIGHT = 5  # highcard
-    THREE_OF_A_KIND = 6  # triplet -> kicker -> kicker
-    TWO_PAIR = 7  # pair -> pair -> kicker
-    PAIR = 8  # pair -> kicker -> kicker -> kicker
-    HIGH_CARD = 9  # highcard -> highcard -> highcard -> highcard -> highcard
+    ROYAL_FLUSH = 0
+    STRAIGHT_FLUSH = 1
+    FOUR_OF_A_KIND = 2
+    FULL_HOUSE = 3
+    FLUSH = 4
+    STRAIGHT = 5
+    THREE_OF_A_KIND = 6
+    TWO_PAIR = 7
+    PAIR = 8
+    HIGH_CARD = 9
 
 
 class PokerHand:
@@ -41,12 +41,14 @@ class PokerHand:
         return self_values == other_values
 
     def __lt__(self, other):
+        # check category first
         if self.category.value != other.category.value:
             return self.category.value > other.category.value
 
         if self.category == PokerHandCategory.ROYAL_FLUSH:
             return False
 
+        # if same category check the ranking cards
         for i in range(len(self.ranking_cards)):
             self_card = self.ranking_cards[i]
             other_card = other.ranking_cards[i]
@@ -252,18 +254,22 @@ class HandAnalyzer:
         return (True, straight[:5])
 
 
-def calculate_winner(players: list[Player], community_cards: list[Card]) -> list[Player]:
+def calculate_winners(players: list[Player], community_cards: list[Card]) -> list[Player]:
     # categorize hands
-    hands = [(player, PokerHand(player.cards, community_cards))
-             for player in players]
+    player_hands = [(player, PokerHand(player.cards, community_cards))
+                    for player in players]
 
     # select best hand
-    winner = [hands[0]]
-    for hand in hands[1:]:
-        if hand[1] == winner[0][1]:
-            winner.append(hand)
-        elif winner[0][1] < hand[1]:
-            winner.clear()
-            winner.append(hand)
+    # TODO does this algorithm really find the best hand? Seems like it just finds
+    winners = [player_hands[0]]
+    for player, hand in player_hands[1:]:
+        best_hand = winners[0][1]
 
-    return [player for (player, _) in winner]
+        if hand == best_hand:
+            winners.append((player, hand))
+
+        elif best_hand < hand:
+            winners.clear()
+            winners.append((player, hand))
+
+    return [player for (player, _) in winners]
