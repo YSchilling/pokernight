@@ -16,6 +16,11 @@ class Deck:
         string += "}"
         return string
 
+    def to_dict(self):
+        return {
+            "cards": [card.to_dict() for card in self.cards]
+        }
+
     def draw_card(self) -> Card:
         return self.cards.pop()
 

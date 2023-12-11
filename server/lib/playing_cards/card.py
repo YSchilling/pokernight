@@ -13,6 +13,12 @@ class Card:
     def __str__(self) -> str:
         return f"({self.color.name} {self.value.name})"
 
+    def to_dict(self):
+        return {
+            "color": self.color.name,
+            "value": self.value.name
+        }
+
     def to_symbol(self):
         card_to_value = {
             CardValue.ACE: 0,

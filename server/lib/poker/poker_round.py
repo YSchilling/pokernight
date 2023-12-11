@@ -37,6 +37,19 @@ class PokerRound:
         self._give_players_cards()
         self._make_blinds()
 
+    def to_dict(self):
+        return {
+            "players": [player.to_dict() for player in self.players],
+            "deck": self.deck.to_dict(),
+            "community_cards": [card.to_dict() for card in self.community_cards],
+            "pot": self.pot,
+            "highest_bet": self.highest_bet,
+            "player_bets": {player.name: bet for (player, bet) in self.player_bets.items()},
+            "phase": self.phase.name,
+            "active_player": self.active_player,
+            "state": self.state.name
+        }
+
     def player_action(self, action: PlayerAction):
         self._process_action(action)
 

@@ -15,3 +15,10 @@ class Player:
         self.name = name
         self.cards: list[Card] = []
         self.chips: int = GameConfig.STARTING_CHIPS
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "cards": [card.to_dict() for card in self.cards],
+            "chips": self.chips
+        }

@@ -6,10 +6,12 @@ from .game_config import GameConfig
 
 import enum
 
+
 class PokerGameState(enum.Enum):
     CREATING = enum.auto()
     RUNNING = enum.auto()
     ENDED = enum.auto()
+
 
 class PokerGame:
     def __init__(self):
@@ -18,10 +20,18 @@ class PokerGame:
         self.dealer_button_position: int = 0
         self.round: PokerRound | None = None
 
+    def to_dict(self):
+        return {
+            "players": [player.to_dict() for player in self.players],
+            "state": self.state.name,
+            "dealer_button_position": self.dealer_button_position,
+            "round": self.round.to_dict(),
+        }
+
     def join_player(self, name):
         if not (self.state == PokerGameState.CREATING) or len(self.players) >= GameConfig.MAX_PLAYERS:
             return
-        
+
         self.players.append(Player(name))
 
     def start_game(self):
@@ -29,15 +39,17 @@ class PokerGame:
             return
 
         self.state = PokerGameState.RUNNING
-        self.round = PokerRound(self._get_active_players(), self.dealer_button_position)
+        self.round = PokerRound(
+            self._get_active_players(), self.dealer_button_position)
 
     def player_action(self, action: PlayerAction) -> None:
         if self.state == PokerGameState.RUNNING:
             self.round.player_action(action)
-        
+
         if self.round.state == RoundState.ENDED:
             self._move_dealer_button()
-            self.round = PokerRound(self._get_active_players(), self.dealer_button_position)
+            self.round = PokerRound(
+                self._get_active_players(), self.dealer_button_position)
 
     def _move_dealer_button(self):
         new_pos = self.dealer_button_position + 1

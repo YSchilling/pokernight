@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="DZj6RHV89Rnd6PY-ZiVc" name="Page-1">
-        <mxGraphModel dx="660" dy="269" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1179" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -10,11 +10,14 @@
                 <mxCell id="4" value="&lt;b&gt;Basics and Card Management&lt;/b&gt;&lt;br&gt;[X] Implement a Deck and Cards&lt;br&gt;[X] Implement Players and Community Cards&lt;br&gt;[X] Basic Game Loop and Game Class&lt;br&gt;[X] Automatically decide winner&lt;br&gt;&lt;b&gt;&lt;br&gt;Betting and Chips Management&lt;br&gt;&lt;/b&gt;[X] Give the players options to take action&lt;br&gt;[X] Implement dealer button and make it move&lt;br&gt;[X] Implement Folding&lt;br&gt;[X] Give players chips&lt;br&gt;[X] Implement Raising and Calling&lt;br&gt;[X] Round ends if everyone called&lt;br&gt;[X] Implement big and small blind&lt;br&gt;[&amp;nbsp; ] Implement winning the pot and pot splitting&lt;br&gt;[&amp;nbsp; ] Implement all ins" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="50" y="55" width="270" height="240" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="&lt;b&gt;Making the game API ready&lt;/b&gt;&lt;br&gt;[&amp;nbsp; ] json export of current game state&lt;br&gt;[X] player taking action with a method and not with input()" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                <mxCell id="5" value="&lt;b&gt;Making the game API ready&lt;/b&gt;&lt;br&gt;[X] json export of current game state&lt;br&gt;[X] player taking action with a method and not with input()" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="320" y="70" width="330" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="&lt;b&gt;Optimize Code&lt;/b&gt;&lt;br&gt;[&amp;nbsp; ] calculate_winner() -&amp;gt; reduce redundant code" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                <mxCell id="6" value="&lt;b&gt;Optimize Code&lt;/b&gt;&lt;br&gt;[&amp;nbsp; ] calculate_winner() -&amp;gt; reduce redundant code" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="45" y="320" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;div style=&quot;&quot;&gt;[&amp;nbsp; ] Input over http and a rest api instead of python code directly&lt;/div&gt;&amp;nbsp; &amp;nbsp; [&amp;nbsp; ]&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;for the api I need to store the game state in a redis db&lt;/span&gt;&lt;br&gt;[&amp;nbsp; ]&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;After this make a simple website for making the http calls&lt;/span&gt;&lt;br&gt;[&amp;nbsp; ]&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;Now think about deployment&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="395" width="360" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
