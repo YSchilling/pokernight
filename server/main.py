@@ -2,10 +2,18 @@ from lib.poker.poker_game import PokerGame
 from lib.poker.player import PlayerAction
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import json
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/game/create")
